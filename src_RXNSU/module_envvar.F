@@ -413,11 +413,11 @@ c         LERROR = .FALSE.
 
            CALL GET_ENVIRONMENT_VARIABLE( NAME=VAR_NAME, VALUE= VAR_VALUE, STATUS=STATUS, TRIM_NAME=.TRUE.)
 
-           IF( STATUS .GT. 0 ) THEN
+           IF( STATUS .GT. 1 .OR. STATUS .LT. 0 ) THEN
               MSG = 'ERROR in environment value for ' // TRIM( VAR_NAME )
               WRITE(LOGDEV,'(a)')TRIM( MSG )
-           ELSE IF( STATUS .LT. 0 )THEN
-              STATUS  = 0
+           ELSE IF( STATUS .EQ. 1 )THEN
+              STATUS  = 1
               VAR_VALUE = TRIM( VAR_DEFAULT ) 
            END IF
            IF( STATUS .EQ. 0 )THEN
@@ -440,11 +440,11 @@ c         LERROR = .FALSE.
 
            CALL GET_ENVIRONMENT_VARIABLE( NAME=VAR_NAME, VALUE= VAR_VALUE, STATUS=STATUS, TRIM_NAME=.TRUE.)
 
-           IF( STATUS .GT. 0 ) THEN
+           IF( STATUS .GT. 1  .OR. STATUS .LT. 0 ) THEN
               MSG = 'ERROR in environment value for ' // TRIM( VAR_NAME )
               WRITE(LOGDEV,'(a)')TRIM( MSG )
-           ELSE IF( STATUS .LT. 0 )THEN
-              STATUS  = 0
+           ELSE IF( STATUS .EQ. 1 )THEN
+              STATUS  = 1
               GET_ENV_FLAG = VAR_DEFAULT
            ELSE 
               IF( VAR_VALUE(1:1) .EQ. 'T' .OR. VAR_VALUE(1:1) .EQ. 'Y' )THEN
